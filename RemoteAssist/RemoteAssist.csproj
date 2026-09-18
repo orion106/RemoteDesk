@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="System.DirectoryServices.Protocols" Version="10.0.1" />
+    <PackageReference Include="System.Management" Version="10.0.1" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.9" />
+    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="3.0.5" />
+    <PackageReference Include="SSH.NET" Version="2026.0.0" />
+    <EmbeddedResource Include="Scripts\*" />
+    <EmbeddedResource Include="Maps\*.svg" />
+    <ProjectReference Include="../RemoteAssist.Inventory/RemoteAssist.Inventory.csproj" />
+    <ProjectReference Include="../RemoteAssist.Inventory.Excel/RemoteAssist.Inventory.Excel.csproj" />
+    <None Include="../README.md" Link="README.md" CopyToPublishDirectory="PreserveNewest" />
+    <None Include="../CLASSROOM-SETUP.md" Link="CLASSROOM-SETUP.md" CopyToPublishDirectory="PreserveNewest" />
+    <None Include="../INVENTORY.md" Link="INVENTORY.md" CopyToPublishDirectory="PreserveNewest" />
+    <None Include="../INVENTORY-SERVER.md" Link="INVENTORY-SERVER.md" CopyToPublishDirectory="PreserveNewest" />
+    <None Include="../THIRD-PARTY-NOTICES.md" Link="THIRD-PARTY-NOTICES.md" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

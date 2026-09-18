@@ -1,0 +1,35 @@
+# TrueNAS SCALE/Community 24.10+: Apps > Discover Apps > custom app > Install via YAML.
+# Replace image, pool paths and hostname/certificate as described in INVENTORY-SERVER.md.
+# No real datasets, certificates, passwords or personal workbook are part of this file.
+services:
+  inventory:
+    image: remoteassist-inventory:1.1
+    pull_policy: never
+    restart: unless-stopped
+    user: "1654:1654"
+    ports:
+      - "8443:8443"
+    environment:
+      ASPNETCORE_URLS: "https://+:8443"
+      INVENTORY_DATA_DIR: "/data"
+      INVENTORY_BACKUP_DIR: "/backups"
+      INVENTORY_OWNER_USERNAME: "owner"
+      INVENTORY_OWNER_PASSWORD_FILE: "/data/config/owner-password.txt"
+      INVENTORY_TLS_PASSWORD_FILE: "/data/config/tls-password.txt"
+      Kestrel__Certificates__Default__Path: "/data/config/server.pfx"
+      DOTNET_EnableDiagnostics: "0"
+    volumes:
+      - type: bind
+        source: /mnt/SSD_POOL/remoteassist-inventory
+        target: /data
+      - type: bind
+        source: /mnt/HDD_POOL/remoteassist-inventory-backups
+        target: /backups
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=128m
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    stop_grace_period: 60s

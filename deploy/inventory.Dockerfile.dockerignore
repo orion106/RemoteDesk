@@ -1,0 +1,12 @@
+**/bin
+**/obj
+**/data
+**/*.pfx
+**/*.secret
+**/*password*
+**/*.xlsx
+**/*.db
+**/*.db-*
+.git
+artifacts
+publish

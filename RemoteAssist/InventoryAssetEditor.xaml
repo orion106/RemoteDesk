@@ -1,0 +1,25 @@
+<UserControl x:Class="RemoteAssist.InventoryAssetEditor" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+      <ScrollViewer  VerticalScrollBarVisibility="Auto"><StackPanel Margin="0,0,10,8">
+       <WrapPanel><Button Content="Сохранить" Command="{Binding SaveAssetCommand}" Style="{DynamicResource PrimaryButton}" Margin="6,0,0,0" Padding="12,7"/></WrapPanel>
+       <TextBlock Text="Тип оборудования" Style="{StaticResource InventoryLabel}"/><ComboBox ItemsSource="{Binding AssetTypes}" IsEditable="True" Text="{Binding DraftAsset.Type,UpdateSourceTrigger=PropertyChanged}"/>
+       <TextBlock Text="Модель" Style="{StaticResource InventoryLabel}"/><TextBox Text="{Binding DraftAsset.Model,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource InventoryField}"/>
+       <TextBlock Text="Инвентарный номер" Style="{StaticResource InventoryLabel}"/><TextBox Text="{Binding DraftAsset.InventoryNumber,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource InventoryField}"/>
+       <TextBlock Text="Номер телефона / добавочный" Style="{StaticResource InventoryLabel}"/><TextBox Text="{Binding DraftAsset.PhoneNumber,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource InventoryField}"/>
+       <TextBlock Text="Кабинет" Style="{StaticResource InventoryLabel}"/><ComboBox ItemsSource="{Binding Rooms}" DisplayMemberPath="Number" SelectedValuePath="Id" SelectedValue="{Binding DraftAsset.RoomId,UpdateSourceTrigger=PropertyChanged}"/>
+       <TextBlock Text="Место" Style="{StaticResource InventoryLabel}"/><TextBox Text="{Binding DraftAsset.Seat,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource InventoryField}"/>
+       <Expander Header="Дополнительные реквизиты"><StackPanel>
+       <TextBlock Text="Серийный номер" Style="{StaticResource InventoryLabel}"/><TextBox Text="{Binding DraftAsset.SerialNumber,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource InventoryField}"/>
+       <TextBlock Text="Имя ПК / рабочее место" Style="{StaticResource InventoryLabel}"/><TextBox Text="{Binding DraftAsset.Hostname,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource InventoryField}"/>
+       <TextBlock Text="MAC" Style="{StaticResource InventoryLabel}"/><TextBox Text="{Binding DraftAsset.Mac,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource InventoryField}"/>
+       <TextBlock Text="Состояние" Style="{StaticResource InventoryLabel}"/><ComboBox ItemsSource="{Binding AssetStates}" IsEditable="True" Text="{Binding DraftAsset.Status,UpdateSourceTrigger=PropertyChanged}"/>
+       <TextBlock Text="Описание" Style="{StaticResource InventoryLabel}"/><TextBox Text="{Binding DraftAsset.Description,UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="65"/>
+       <TextBlock Text="Примечание" Style="{StaticResource InventoryLabel}"/><TextBox Text="{Binding DraftAsset.Notes,UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="65"/>
+       <TextBlock Text="Совместимые модели картриджей (через ;)" Style="{StaticResource InventoryLabel}"/><TextBox Text="{Binding CompatibleModels,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource InventoryField}"/>
+       </StackPanel></Expander>
+       <Expander Header="Связь с другой техникой" IsExpanded="True"><StackPanel><TextBlock Text="Основное устройство (например, ПК для этого монитора)" TextWrapping="Wrap" Style="{StaticResource InventoryLabel}"/><ComboBox ItemsSource="{Binding LinkTargets}" DisplayMemberPath="Summary" SelectedValuePath="Id" SelectedValue="{Binding DraftAsset.ParentAssetId,UpdateSourceTrigger=PropertyChanged}"/><Button Content="Убрать связь из карточки" Click="ClearParent_Click" Margin="0,8"/><TextBlock Text="Связь применяется кнопкой «Сохранить». Устройства перемещаются отдельно." TextWrapping="Wrap" FontSize="12" Foreground="{DynamicResource MutedBrush}"/></StackPanel></Expander>
+       <Expander Header="Архив и управление"><StackPanel>
+       <Button Content="Архивировать / восстановить" Command="{Binding ArchiveAssetCommand}" Margin="0,10,0,5"/><Button Content="Загрузить текущую карточку" Command="{Binding ReloadDraftCommand}" ToolTip="Заменяет черновик текущими данными сервера"/>
+       <Expander Header="Связь с удалённым управлением" Margin="0,12,0,0"><StackPanel><TextBlock Text="Выберите существующую локальную карточку ПК" Style="{StaticResource InventoryLabel}"/><ComboBox ItemsSource="{Binding LocalComputers}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedComputer}"/><TextBlock Text="{Binding LinkSuggestions}" TextWrapping="Wrap" FontSize="12" Margin="0,7"/><Button Content="Связать с этим объектом" Command="{Binding LinkComputerCommand}" Margin="0,8,0,4"/><Button Content="Снять связь выбранного ПК" Command="{Binding UnlinkComputerCommand}"/></StackPanel></Expander>
+       </StackPanel></Expander><TextBlock Text="{Binding Message}" TextWrapping="Wrap" Margin="0,12" Foreground="{DynamicResource MutedBrush}"/>
+      </StackPanel></ScrollViewer>
+</UserControl>
